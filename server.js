@@ -40,10 +40,10 @@ var server = http.createServer(function (request, response) {
             } else {
                 response.statusCode = 200;
                 response.setHeader('Set-Cookie', `user_id=${user.id};HttpOnly`);
-                response.end()
             }
         });
-    } else if (path === '/home.html') {
+    }
+    else if (path === '/home.html') {
         const cookie = request.headers['cookie'];
         let userId;
         try {
@@ -66,12 +66,12 @@ var server = http.createServer(function (request, response) {
         } else {
             const homeHtml = fs.readFileSync('./public/home.html').toString();
             let string;
-            string = homeHtml.replace('{{loginStatus}}', '未登录')
+            string = homeHtml.replace('{{loginStatus}}', '')
                 .replace('{{user.name}}', '');
             response.write(string)
         }
-        response.end('home~~')
-    } else if (path === '/register' && method === 'POST') {
+    }
+    else if (path === '/register' && method === 'POST') {
         response.setHeader('Content-Type', 'text/html;charset=UTF-8');
         const userArray = JSON.parse(fs.readFileSync('./db/users.json'));
         const array = [];
@@ -89,9 +89,9 @@ var server = http.createServer(function (request, response) {
             };
             userArray.push(newUser);
             fs.writeFileSync('./db/users.json', JSON.stringify(userArray));
-            response.end()
         });
-    } else {
+    }
+    else {
         response.statusCode = 200;
         // 默认首页
         const filePath = path === '/' ? '/index.html' : path;
@@ -114,8 +114,9 @@ var server = http.createServer(function (request, response) {
             response.statusCode = 404
         }
         response.write(content);
-        response.end()
     }
+    response.end();
+
     /******** 代码结束，下面不要看 ************/
 });
 
