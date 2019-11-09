@@ -31,6 +31,11 @@
             url: '/register',
             contentType: 'text/json;charset=UTF-8',
             data: JSON.stringify({name, password})
+        }).then(() => {
+            alert('注册成功');
+            location.href = '/sign_in.html'
+        }, () => {
+
         })
     })
 </script>
